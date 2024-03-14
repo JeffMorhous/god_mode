@@ -1,0 +1,6 @@
+<h1>Careful, You Are In God Mode</h1>
+<ul>
+  <% @models.each do |model| %>
+    <li><%= link_to model.name, "/god-mode/models/#{model.name.underscore}" %></li>
+  <% end %>
+</ul>
