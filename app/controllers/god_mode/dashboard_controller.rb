@@ -1,7 +1,8 @@
 module GodMode
   class DashboardController < ApplicationController
     def index
-      @models = ActiveRecord::Base.descendants.reject(&:abstract_class?)
+      load_models
+      @models = ::ApplicationRecord.descendants
     end
 
     def show
@@ -10,6 +11,18 @@ module GodMode
     rescue NameError
       redirect_to root_path, alert: "Model not found."
     end
+
+    private
+
+    def load_models
+      # Get all Ruby files in the app/models directory
+      model_files = Dir[Rails.root.join('app', 'models', '*.rb')]
+      model_files.each do |file_path|
+        # Require each file to load the model into memory
+        require_dependency file_path
+      end
+    end
+
 
   end
 end
