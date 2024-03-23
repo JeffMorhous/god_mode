@@ -2,7 +2,7 @@
 <table>
   <thead>
   <tr>
-    <% @records.first.attributes.each_key do |attr| %>
+    <% @model_class.attribute_names.each do |attr| %>
       <th><%= attr %></th>
     <% end %>
   </tr>
